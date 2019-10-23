@@ -1,18 +1,16 @@
-const path = require('path');
 const express = require('express');
 const bodyParser = require('body-parser');
 const port = process.env.PORT || 8000;
 const cors = require('cors');
 const logger = require('morgan');
-const knex = require('./db/knex');
+const { Model } = require('objection');
+const knexInstance = require('./db/knex');
 
-const index = require('./routes/indexRoutes');
 const todos = require('./routes/todosRoutes');
 
-const app = express();
+Model.knex(knexInstance);
 
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'ejs');
+const app = express();
 
 app.use(logger('dev'));
 app.use(cors());
