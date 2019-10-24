@@ -6,11 +6,11 @@ class Customer extends Model {
   }
 
   static get relationMappings() {
-    const TeeTime = require('./TeeTime')
+    const Tee_Time = require('./Tee_Time')
     return {
       tee_times: {
         relation: Model.ManyToManyRelation,
-        modelClass: TeeTime,
+        modelClass: Tee_Time,
         join: {
           from: 'customers.id',
           through: {
@@ -42,4 +42,6 @@ class Customer extends Model {
   }
 
 }
+
+module.exports = Customer
 
