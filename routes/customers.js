@@ -10,4 +10,4 @@ router.patch('/customers/:id', customersController.updateOneCustomer)
 router.delete('/customers/:id', customersController.deleteOneCustomer)
 
 
-module.exports = router;
+module.exports = router
