@@ -17,5 +17,5 @@ exports.deleteOneCustomer = (req, res) => {
 }
 
 exports.addOneCustomer = (req, res) => {
-  Customer.query().insert(req.body).insert(req.body).then(newCustomer => res.json(newCustomer))
+  Customer.query().insert(req.body).then(newCustomer => res.json(newCustomer))
 }
