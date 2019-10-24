@@ -15,7 +15,7 @@ class Tee_Time extends Model {
           from: 'tee_times.id',
           through: {
             from: 'customers_tee_times.tee_time_id',
-            to: 'customers_tee_times.tee_time_id',
+            to: 'customers_tee_times.customer_id',
           },
           to: 'customers.id'
         }
