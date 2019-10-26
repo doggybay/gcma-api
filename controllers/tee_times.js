@@ -1,4 +1,5 @@
 const Tee_Time = require('../models/Tee_Time')
+const knex = require("../db/knex");
 
 exports.getAllTeeTimes = (req, res) => {
   Tee_Time.query().eager('customers').then(teeTimes => res.json(teeTimes))
@@ -13,7 +14,17 @@ exports.updateOneTeeTime = (req, res) => {
 }
 
 exports.addOneTeeTime = (req, res) => {
-  Tee_Time.query().insert(req.body).then(newTeeTime => res.json(newTeeTime))
+
+  let newTeeTime = {
+    "time": req.body.time
+  }
+  Tee_Time.query().insert(newTeeTime).then(newTeeTime => {
+    knex('customers_tee_times').insert({
+      "customer_id": req.body.customer_id,
+      "tee_time_id": newTeeTime.id
+    }).then(result => result)
+    res.json(newTeeTime)
+  })
 }
 
 exports.deleteOneTeeTime = (req, res) => {
