@@ -8,7 +8,17 @@ const homeConnString = {
 
 let connectionString = process.platform === 'win32' ? 'postgres://db_access:freedom@localhost/gc-mngmt' : 'postgres://localhost/gc-mngmt'
   
-  module.exports = {
+module.exports = {
+    test: {
+    client: 'pg',
+    connection: connectionString,
+    migrations: {
+      directory: __dirname + '/db/migrations'
+    },
+    seeds: {
+      directory: __dirname + '/db/seeds'
+    }
+  },
     development: {
         client: 'pg',
         connection: connectionString,

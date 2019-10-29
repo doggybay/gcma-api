@@ -25,7 +25,7 @@ describe('the customers entity routes', () => {
       const res = await request(app).get('/api/customers')
 
       expect(res.status).toEqual(200)
-      exect(res.body).toHaveLength(300)
+      expect(res.body).toHaveLength(300)
     })
   })
 
@@ -35,7 +35,7 @@ describe('the customers entity routes', () => {
       const res = await request(app).get(`/api/customers/${id}`)
 
       expect(res.status).toEqual(200)
-      expect(res.body).toHaveLength(1)
+      expect(res.body.id).toEqual(10)
     })
   })
 
@@ -51,7 +51,7 @@ describe('the customers entity routes', () => {
       const res = await request(app).post('/api/customers').send(newCustomer)
 
       expect(res.status).toEqual(200)
-      expect(res.body).toHaveLength(1)
+      expect(res.body.name).toEqual('Luke Duke')
     })
   })
 
@@ -66,10 +66,10 @@ describe('the customers entity routes', () => {
       const res = await request(app).patch(`/api/customers/${id}`).send(updatedCustomer)
 
       expect(res.status).toEqual(200)
-      expect(res.body[0].company).toEqual('Applesauce')
+      expect(res.body.company).toEqual('Applesauce')
 
       const customers = await knex('customers')
-      expect(customers[0].name).toEqual('Jhonny Appleseed')
+      expect(customers.name).toEqual('Jhonny Appleseed')
     })
   })
 
@@ -82,7 +82,7 @@ describe('the customers entity routes', () => {
       expect(res.body[0].name).toEqual("Lucas Duke")
 
       const customers = await knex('customers')
-      expect(customers[1].id).toEqual(3)
+      expect(customers.id).toEqual(3)
     })
   })
 
