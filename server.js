@@ -22,6 +22,4 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use('/api', customers)
 app.use('/api', teeTimes)
 
-app.listen(port, function() {
-  console.log("listening on port: ", port)
-})
+module.exports = { app }
