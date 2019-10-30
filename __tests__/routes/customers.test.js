@@ -16,7 +16,11 @@ describe('the customers entity routes', () => {
 
   afterEach(done => {
     return knex.migrate.rollback().then(() => {
-      done()
+      knex.migrate.latest().then(() => {
+        knex.seed.run().then(() => {
+          done()
+        })
+      })
     })
   })
 
@@ -57,19 +61,18 @@ describe('the customers entity routes', () => {
 
   describe('update one existing customer', () => {
     it('should update one existing customer successfully', async () => {
-      const id = 1
+      const id = 300
       const updatedCustomer = {
-        "name": "Jhonny Appleseed",
-        "company": "Applesauce"
+        name: "Applesauce"
       }
       
       const res = await request(app).patch(`/api/customers/${id}`).send(updatedCustomer)
 
       expect(res.status).toEqual(200)
-      expect(res.body.company).toEqual('Applesauce')
+      expect(res.body.name).toEqual('Applesauce')
 
       const customers = await knex('customers')
-      expect(customers.name).toEqual('Jhonny Appleseed')
+      expect(customers[299].name).toEqual("Applesauce");
     })
   })
 
@@ -79,10 +82,10 @@ describe('the customers entity routes', () => {
       const res = await request(app).delete(`/api/customers/${id}`)
 
       expect(res.status).toEqual(200)
-      expect(res.body[0].name).toEqual("Lucas Duke")
+      expect(res.body.name).toEqual("Lucas Duke")
 
       const customers = await knex('customers')
-      expect(customers.id).toEqual(3)
+      expect(customers).toHaveLength(299)
     })
   })
 
