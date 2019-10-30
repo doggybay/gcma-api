@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "nodemon app.js",
+    "start": "nodemon PORT=8000 app.js",
     "test": "jest -i --watchAll"
   },
   "dependencies": {
