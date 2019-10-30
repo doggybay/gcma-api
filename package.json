@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "nodemon PORT=8000 app.js",
+    "start": "cross-env PORT=8000 nodemon app.js",
     "test": "jest -i --watchAll"
   },
   "dependencies": {
@@ -11,12 +11,14 @@
     "cookie-parser": "^1.4.3",
     "cors": "^2.8.4",
     "debug": "^3.1.0",
+    "dotenv": "^8.2.0",
     "ejs": "^2.5.7",
     "express": "^4.16.2",
     "knex": "^0.19.5",
     "morgan": "^1.9.0",
     "objection": "^1.6.11",
-    "pg": "^7.12.1"
+    "pg": "^7.12.1",
+    "port": "^0.8.1"
   },
   "devDependencies": {
     "cross-env": "^6.0.3",
