@@ -1,7 +1,7 @@
 const request = require("supertest");
 const { app } = require("../../server");
 const knex = require("../../db/knex");
-const knexCleaner = require("knex-cleaner");
+
 
 describe('the customers entity routes', () => {
   beforeEach(done => {
@@ -34,12 +34,19 @@ describe('the customers entity routes', () => {
   })
 
   describe('get one customer', () => {
-    it('shoule fetch one customer successfully', async () => {
+    it('should fetch one customer successfully', async () => {
       const id = 10
       const res = await request(app).get(`/api/customers/${id}`)
 
       expect(res.status).toEqual(200)
-      expect(res.body.id).toEqual(10)
+      expect(res.body.id).toHaveProperty('id')
+      expect(res.body.id).toHaveProperty('name')
+      expect(res.body.id).toHaveProperty('address')
+      expect(res.body.id).toHaveProperty('company')
+      expect(res.body.id).toHaveProperty('email')
+      expect(res.body.id).toHaveProperty('phone')
+      expect(res.body.id).toHaveProperty('created_at')
+      expect(res.body.id).toHaveProperty('updated_at')
     })
   })
 
@@ -55,7 +62,14 @@ describe('the customers entity routes', () => {
       const res = await request(app).post('/api/customers').send(newCustomer)
 
       expect(res.status).toEqual(200)
-      expect(res.body.name).toEqual('Luke Duke')
+      expect(res.body.id).toHaveProperty('id')
+      expect(res.body.id).toHaveProperty('name')
+      expect(res.body.id).toHaveProperty('address')
+      expect(res.body.id).toHaveProperty('company')
+      expect(res.body.id).toHaveProperty('email')
+      expect(res.body.id).toHaveProperty('phone')
+      expect(res.body.id).toHaveProperty('created_at')
+      expect(res.body.id).toHaveProperty('updated_at')
     })
   })
 
@@ -72,7 +86,8 @@ describe('the customers entity routes', () => {
       expect(res.body.name).toEqual('Applesauce')
 
       const customers = await knex('customers')
-      expect(customers[299].name).toEqual("Applesauce");
+      const expectedCustomer = customers.find(cust => cust.id === id)
+      expect(expectedCustomer.name).toEqual("Applesauce")
     })
   })
 
