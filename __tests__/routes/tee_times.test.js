@@ -63,11 +63,6 @@ describe('the tee_times entity routes', () => {
 
       expect(res.status).toEqual(200)
       expect(res.body.id).toHaveProperty('id')
-      expect(res.body.id).toHaveProperty('name')
-      expect(res.body.id).toHaveProperty('address')
-      expect(res.body.id).toHaveProperty('company')
-      expect(res.body.id).toHaveProperty('email')
-      expect(res.body.id).toHaveProperty('phone')
       expect(res.body.id).toHaveProperty('created_at')
       expect(res.body.id).toHaveProperty('updated_at')
     })
