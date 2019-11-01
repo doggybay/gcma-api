@@ -1,7 +1,7 @@
 const request = require("supertest");
 const { app } = require("../../server");
 const knex = require("../../db/knex");
-const Tee_Time = require('../../models/Tee_Time')
+const TeeTime = require('../../models/Tee_Time')
 
 describe('the tee_times entity routes', () => {
   beforeEach(done => {
@@ -25,46 +25,74 @@ describe('the tee_times entity routes', () => {
   })
 
   describe('get all teetimes', () => {
-    it('should fetch all the customers successfully', async () => {
+    it('should fetch all the teetimes successfully', async () => {
+      //Arrange
+
+      //Act
       const res = await request(app).get('/api/teetimes')
 
+      //Assert
       expect(res.status).toEqual(200)
-      expect(res.body).toHaveLength(300)
+      expect(res.body).toHaveLength(500)
     })
   })
 
   describe('get one teetime', () => {
-    it('should fetch one customer successfully', async () => {
+    it('should fetch one teetime successfully', async () => {
+      //Arrange
       const id = 10
+
+      //Act
       const res = await request(app).get(`/api/teetimes/${id}`)
 
+      //Assert
       expect(res.status).toEqual(200)
-      expect(res.body.id).toHaveProperty('id')
-      expect(res.body.id).toHaveProperty('name')
-      expect(res.body.id).toHaveProperty('address')
-      expect(res.body.id).toHaveProperty('company')
-      expect(res.body.id).toHaveProperty('email')
-      expect(res.body.id).toHaveProperty('phone')
-      expect(res.body.id).toHaveProperty('created_at')
-      expect(res.body.id).toHaveProperty('updated_at')
+      expect(res.body).toHaveProperty('id')
+      expect(res.body).toHaveProperty('time')
+      
     })
   })
 
-  describe('add a new customer', () => {
-    it('should add one new customer successfully', async () => {
-      const newCustomer = {
-        name: "Luke Duke",
-        company: "MARS",
-        email: "lucduk@mars.com",
-        phone: "+1 (894) 530-2979",
-        address: "412 Meadow Street, Matheny, Maryland, 4085"
-      }
-      const res = await request(app).post('/api/customers').send(newCustomer)
+  describe('add a new teetime', () => {
+    it('should add a new teetime if it does not exist or add existing teetime and customer to the join table successfully', async () => {
+      //Arrange
+      const newTime = new Date()
 
+      const newTeetime = {
+        time: newTime,
+        customer_id: 1
+      }
+
+      //Act
+      const res = await request(app).post('/api/teetimes').send(newTeetime)
+
+      //Assert
+      //Test response
       expect(res.status).toEqual(200)
-      expect(res.body.id).toHaveProperty('id')
-      expect(res.body.id).toHaveProperty('created_at')
-      expect(res.body.id).toHaveProperty('updated_at')
+      expect(res.body).toHaveProperty('id')
+      expect(res.body).toHaveProperty('customer_id')
+      expect(res.body).toHaveProperty('tee_time_id')
+
+      //Test database
+      if (res.body.id > 500) {
+
+        //Test for teetime add to db
+        const theTeeTime = await TeeTime.query().findById(501)
+        expect(theTeeTime.time.toISOString()).toEqual(newTime.toISOString())
+
+        //Test for join table add
+        const custTeetime = await knex("customers_tee_times").findById(1001);
+        expect(custTeetime.customer_id).toEqual(newTeetime.customer_id);
+        expect(custTeetime.tee_time_id.toISOString()).toEqual(
+          newTeetime.toISOString()
+        )
+      } else {
+        //Test for join table add
+        const custTeetime = await knex('customers_tee_times').findById(1001)
+        expect(custTeetime.customer_id).toEqual(newTeetime.customer_id)
+        expect(custTeetime.tee_time_id.toISOString()).toEqual(newTeetime.toISOString())
+      }
+
     })
   })
 
