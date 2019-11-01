@@ -115,16 +115,16 @@ describe('the tee_times entity routes', () => {
   //   })
   // })
 
-  describe('remove one customer', () => {
-    it('should remove one customer successfully', async () => {
+  describe('remove one teetime', () => {
+    it('should remove one teetime successfully', async () => {
       const id = 2
-      const res = await request(app).delete(`/api/customers/${id}`)
+      const res = await request(app).delete(`/api/teetimes/${id}`)
 
       expect(res.status).toEqual(200)
       expect(res.body.name).toEqual("Lucas Duke")
 
-      const customers = await knex('customers')
-      expect(customers).toHaveLength(299)
+      const s = await TeeTime.query()
+      expect(s).toHaveLength(299)
     })
   })
 
