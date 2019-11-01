@@ -83,15 +83,13 @@ describe('the tee_times entity routes', () => {
         const custTeetimes = await knex("customers_tee_times")
         const custTeetime = custTeetimes.find(custTeetime => custTeetime.id === 1001)
         expect(custTeetime.customer_id).toEqual(newTeetime.customer_id)
-        expect(custTeetime.tee_time_id.toISOString()).toEqual(
-          newTeetime.toISOString()
-        )
+        expect(custTeetime.tee_time_id).toEqual(theTeeTime.id)
       } else {
         //Test for join table add
         const custTeetimes = await knex('customers_tee_times')
         const custTeetime = custTeetimes.find(custTeetime => custTeetime.id === 1001)
         expect(custTeetime.customer_id).toEqual(newTeetime.customer_id)
-        expect(custTeetime.tee_time_id.toISOString()).toEqual(newTeetime.toISOString())
+        expect(custTeetime.tee_time_id).toEqual(res.body.id)
       }
 
     })
@@ -122,10 +120,10 @@ describe('the tee_times entity routes', () => {
       const res = await request(app).delete(`/api/teetimes/${id}`)
 
       expect(res.status).toEqual(200)
-      expect(res.body.name).toEqual("Lucas Duke")
+      expect(res.body.id).toEqual(id)
 
-      const s = await TeeTime.query()
-      expect(s).toHaveLength(299)
+      const teetimes = await TeeTime.query()
+      expect(teetimes).toHaveLength(499)
     })
   })
 
