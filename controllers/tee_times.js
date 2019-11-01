@@ -32,10 +32,12 @@ exports.addOneTeeTime = (req, res) => {
         res.json(newTeeTime)
       })
     } else {
-      knex('customers_tee_times').insert({
-        "customer_id": req.body.customer_id,
-        "tee_time_id": filteredTeeTime.id
-      }).returning('*').then(result => res.json(result))
+      knex('customers_tee_times').insert(
+        {
+          "customer_id": req.body.customer_id,
+          "tee_time_id": filteredTeeTime.id
+        }
+      ).returning('*').then(result => res.json(result))
     }
     
   })

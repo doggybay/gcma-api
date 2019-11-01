@@ -96,23 +96,24 @@ describe('the tee_times entity routes', () => {
     })
   })
 
-  describe('update one existing customer', () => {
-    it('should update one existing customer successfully', async () => {
-      const id = 300
-      const updatedCustomer = {
-        name: "Applesauce"
-      }
+  // describe('update one existing customer', () => {
+  //   it('should update one existing customer successfully', async () => {
+  //     //
+  //     const id = 300
+  //     const updatedCustomer = {
+  //       name: "Applesauce"
+  //     }
 
-      const res = await request(app).patch(`/api/customers/${id}`).send(updatedCustomer)
+  //     const res = await request(app).patch(`/api/customers/${id}`).send(updatedCustomer)
 
-      expect(res.status).toEqual(200)
-      expect(res.body.name).toEqual('Applesauce')
+  //     expect(res.status).toEqual(200)
+  //     expect(res.body.name).toEqual('Applesauce')
 
-      const customers = await knex('customers')
-      const expectedCustomer = customers.find(cust => cust.id === id)
-      expect(expectedCustomer.name).toEqual("Applesauce")
-    })
-  })
+  //     const customers = await knex('customers')
+  //     const expectedCustomer = customers.find(cust => cust.id === id)
+  //     expect(expectedCustomer.name).toEqual("Applesauce")
+  //   })
+  // })
 
   describe('remove one customer', () => {
     it('should remove one customer successfully', async () => {
