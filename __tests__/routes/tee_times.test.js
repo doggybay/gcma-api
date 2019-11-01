@@ -70,8 +70,7 @@ describe('the tee_times entity routes', () => {
       //Test response
       expect(res.status).toEqual(200)
       expect(res.body).toHaveProperty('id')
-      expect(res.body).toHaveProperty('customer_id')
-      expect(res.body).toHaveProperty('tee_time_id')
+      expect(res.body).toHaveProperty('time')
 
       //Test database
       if (res.body.id > 500) {
@@ -81,14 +80,16 @@ describe('the tee_times entity routes', () => {
         expect(theTeeTime.time.toISOString()).toEqual(newTime.toISOString())
 
         //Test for join table add
-        const custTeetime = await knex("customers_tee_times").findById(1001);
-        expect(custTeetime.customer_id).toEqual(newTeetime.customer_id);
+        const custTeetimes = await knex("customers_tee_times")
+        const custTeetime = custTeetimes.find(custTeetime => custTeetime.id === 1001)
+        expect(custTeetime.customer_id).toEqual(newTeetime.customer_id)
         expect(custTeetime.tee_time_id.toISOString()).toEqual(
           newTeetime.toISOString()
         )
       } else {
         //Test for join table add
-        const custTeetime = await knex('customers_tee_times').findById(1001)
+        const custTeetimes = await knex('customers_tee_times')
+        const custTeetime = custTeetimes.find(custTeetime => custTeetime.id === 1001)
         expect(custTeetime.customer_id).toEqual(newTeetime.customer_id)
         expect(custTeetime.tee_time_id.toISOString()).toEqual(newTeetime.toISOString())
       }
