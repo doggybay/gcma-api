@@ -1,4 +1,4 @@
-FROM node:10
+FROM node:carbon
 
 #Create app directory
 WORKDIR /usr/src/app
@@ -16,5 +16,5 @@ RUN npm install
 COPY . .
 
 EXPOSE 8000
-CMD [ "npm start" ]
+CMD ["npm", "start"]
 
