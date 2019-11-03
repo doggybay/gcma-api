@@ -16,5 +16,5 @@ RUN npm install
 COPY . .
 
 EXPOSE 8000
-CMD [ "nodemon", "app.js" ]
+CMD [ "npm start" ]
 
