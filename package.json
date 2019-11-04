@@ -4,8 +4,11 @@
   "private": true,
   "main": "app.js",
   "scripts": {
-    "start": "cross-env PORT=8000 nodemon app.js",
-    "test": "jest -i --watchAll"
+    "start": "PORT=8000 nodemon app.js",
+    "development": "nodemon app.js",
+    "test": "jest -i --watchAll",
+    "migrate": "knex migrate:latest",
+    "rollback": "knex migrate:rollback"
   },
   "dependencies": {
     "body-parser": "^1.18.2",
