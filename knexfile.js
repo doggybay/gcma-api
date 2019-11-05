@@ -10,7 +10,8 @@ const { DB_HOST, DB_USER, DB_NAME, DB_PASSWORD, DB_PORT } = process.env
 const dockerConnectionString = `postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:${DB_PORT}/${DB_NAME}`
 
 let connectionString = process.platform === 'win32' ? 'postgres://db_access:freedom@localhost/gc-mngmt' : 'postgres://localhost/gc-mngmt'
-  
+const devConnString = `postgres://db_access:freedom@localhost:5433/gc-mngmt`
+
 module.exports = {
     test: {
     client: 'pg',
