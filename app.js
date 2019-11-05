@@ -1,5 +1,6 @@
 const { app } = require("./server");
+const { HOST, PORT } = process.env
 
-app.listen(process.env.PORT, function() {
-  console.log("listening on port: ", process.env.PORT);
+app.listen(PORT, HOST, function() {
+  console.log(`Running on  http://${HOST}:${PORT}`);
 });
