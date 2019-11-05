@@ -1,26 +1,23 @@
 # The docker-compose DSL syntax format we're using
 
 version: "3.7"
-
 services:
-
 # Database
-
   db:
     # Define postgres image to use 
     image: postgres
     # Define enviornemt variables
-    enviornment:
-        POSTGRES_PASSWORD: docker
-        POSTGRES_USER: postgres
-    # Define volume to allow for persistent data
+    environment:
+      POSTGRES_PASSWORD: docker
+      POSTGRES_USER: postgres
+      
     volumes:
         - $HOME/docker/volumes/postgres:/var/lib/postgresql/data
     # Define internal container port and bind to external localhost port
     # 'external:internal'
-    port:
+    ports:
         - '5433:5432'
-  server:
+  web:
     # Builds server image based on Dockerfile 
     build: ./
     # List containers that the server app is dependent on
