@@ -1,6 +1,7 @@
 const express = require('express')
 const bodyParser = require('body-parser')
 const port = process.env.PORT || 8000
+
 const cors = require('cors')
 const logger = require('morgan')
 const { Model } = require('objection')
@@ -23,6 +24,7 @@ app.use('/api', customers)
 app.use('/api', teeTimes)
 
 app.get('/', (req, res) => {
+  
   res.send('Server is up......')
 })
 
