@@ -5,13 +5,16 @@ const homeConnString = {
   database: "gc-mngmt",
   port: 5432
 };
+const { DB_HOST, DB_USER, DB_NAME, DB_PASSWORD, DB_PORT } = process.env
+
+const dockerConnectionString = `postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:${DB_PORT}/${DB_NAME}`
 
 let connectionString = process.platform === 'win32' ? 'postgres://db_access:freedom@localhost/gc-mngmt' : 'postgres://localhost/gc-mngmt'
   
 module.exports = {
     test: {
     client: 'pg',
-    connection: connectionString,
+    connection: dockerConnectionString,
     migrations: {
       directory: __dirname + '/db/migrations'
     },
@@ -21,7 +24,7 @@ module.exports = {
   },
     development: {
         client: 'pg',
-        connection: connectionString,
+        connection: dockerConnectionString,
         migrations: {
             directory: __dirname + '/db/migrations',
           },
