@@ -1,5 +1,5 @@
 # The docker-compose DSL syntax format we're using
-
+# 
 version: "3.7"
 services:
 # Database
@@ -10,7 +10,7 @@ services:
     environment:
       POSTGRES_PASSWORD: docker
       POSTGRES_USER: postgres
-      
+    # Define volume to allow for persistent data
     volumes:
         - $HOME/docker/volumes/postgres:/var/lib/postgresql/data
     # Define internal container port and bind to external localhost port
