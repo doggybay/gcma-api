@@ -25,10 +25,10 @@ services:
         - db
     # Setting volumes to be able to watch server.js for changes
     volumes:
-        # - ./app.js:/usr/src/app/app.js
+        - ./app.js:/usr/src/app/app.js
         # - //c/Users/doggy/Documents/school/gcma-client:/usr/src/app
     # Insert envelope file to provide enviornemnt variables
-    - /mnt/c/Users/doggy/documents/school/gcma-api:/usr/src/app
+    # - /mnt/c/Users/doggy/documents/school/gcma-api:/usr/src/app
     env_file: ./.env
     # <host-port>:<container-port> to listen to
     ports:
