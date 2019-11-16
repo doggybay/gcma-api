@@ -22,4 +22,8 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use('/api', customers)
 app.use('/api', teeTimes)
 
+app.get("/", (req, res) => {
+  res.send("Server is up......");
+})
+
 module.exports = { app }
